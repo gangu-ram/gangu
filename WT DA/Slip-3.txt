@@ -1,0 +1,84 @@
+Slip-3
+Q.1)WriteaPHPscripttoacceptusernameandpassword.Ifinthefirstthreechances,
+usernameand
+Passwordenterediscorrectthendisplaysecondform with“Welcomemessage”otherwise
+displayerror
+Message.[UseSession]
+.
+Ans:
+
+
+<?php
+//Startsession
+Session_start();
+//Checkifloginform hasbeensubmitted
+If(isset($_POST[‘submit’])){
+//Getusernameandpasswordinputfrom user
+$username=$_POST[‘username’];
+$password=$_POST[‘password’];
+//Setcorrectusernameandpassword
+$correct_username=‘myusername’;
+$correct_password=‘mypassword’;
+//Checkifenteredusernameandpasswordarecorrect
+If($username==$correct_username&&$password==$correct_password){
+//Setsessionvariabletomarkuserasloggedin
+$_SESSION[‘loggedin’]=true;
+//Redirectusertowelcomepage
+Header(‘Location:welcome.php’);
+Exit;
+}else{
+//Decrementloginattempts
+If(isset($_SESSION[‘attempts’])){
+$_SESSION[‘attempts’]--;
+}else{
+$_SESSION[‘attempts’]=3;
+}
+//Displayerrormessageifmaximum loginattemptsexceeded
+If($_SESSION[‘attempts’]<=0){
+Echo“Maximum loginattemptsexceeded.Pleasetryagainlater.”;
+}else{
+//Displayerrormessage
+Echo“Invalidusernameorpassword.Youhave“.$_SESSION[‘attempts’].”Attempt(s)left.”;
+}
+}
+}
+?>
+<!—HTMLform foruserinput
+<form method=”post”>
+<labelfor=”username”>Username:</label>
+<inputtype=”text”id=”username”name=”username”required><br><br>
+<labelfor=”password”>Password:</label>
+<inputtype=”password”id=”password”name=”password”required><br><br>
+<inputtype=”submit”name=”submit”value=”LogIn”>
+</form>
+
+
+Q.2)Create‘User’Datasethaving5columnsnamely:UserID,Gender,Age,EstimatedSalaryand
+urchased.Buildalogisticregressionmodelthatcanpredictwhetheronthegivenparametera
+personwillbuyacarornot.
+Ans:
+
+
+Importpandasaspd
+Data={‘UserID’:[1,2,3,4,5,6,7,8,9,10],
+‘Gender’:[‘Male’,‘Male’,‘Female’,‘Female’,‘Male’,‘Male’,‘Female’,‘Female’,‘Male’,‘Female’],
+‘Age’:[19,35,26,27,19,27,32,25,33,45],
+‘EstimatedSalary’:[19000,20000,43000,57000,76000,58000,82000,32000,69000,
+65000],
+‘Purchased’:[0,0,0,1,1,0,1,0,1,1]}
+Df=pd.DataFrame(data)
+From sklearn.model_selectionimporttrain_test_split
+X=df.iloc[:,1:4].values
+Y=df.iloc[:,4].values
+X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.3,random_state=0)
+From sklearn.linear_modelimportLogisticRegression
+Lr=LogisticRegression(random_state=0)
+Lr.fit(X_train,y_train)
+#Predictasingleobservation
+Observation=[[0,30,87000]]
+Prediction=Lr.predict(observation)
+Print(prediction)
+#Predictmultipleobservations
+Observations=[[0,30,87000],[1,50,45000],[1,22,30000]]
+Predictions=Lr.predict(observations)
+Print(predictions)

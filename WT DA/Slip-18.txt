@@ -1,0 +1,92 @@
+Slip-18
+
+Q.1)WriteaJavaScriptProgram toprintFibonaccinumbersononclickevent.
+Ans:
+
+
+
+<!DOCTYPEhtml>
+<html>
+<head>
+<title>FibonacciNumbers</title>
+<script>
+FunctiongenerateFibonacci(){
+//Gettheinputvaluefrom theuser
+Varinput=document.getElementById(“inputNumber”).value;
+Varoutput=document.getElementById(“output”);
+//Converttheinputtoanumber
+Varn=parseInt(input);
+//CreateanarraytostoretheFibonaccisequence
+Varfib=[];
+//CalculatetheFibonaccisequenceupton
+Fib[0]=0;
+Fib[1]=1;
+For(vari=2;i<=n;i++){
+Fib[i]=fib[i-1]+fib[i-2];
+}
+//DisplaytheFibonaccisequence
+Output.innerHTML=“Fibonaccisequenceupto“+n+“:“+fib.join(“,“);
+}
+</script>
+</head>
+<body>
+<h1>FibonacciNumbers</h1>
+<p>Enteranumber:</p>
+<inputtype=”text”id=”inputNumber”>
+<buttononclick=”generateFibonacci()”>GenerateFibonacci</button>
+<pid=”output”></p>
+</body>
+</html>
+
+
+
+
+Q.2)Consideranytextparagraph.Removethestopwords.Tokenizetheparagraphtoextract
+wordsand
+Sentences.Calculatethewordfrequencydistributionandplotthefrequencies.Plotthe
+wordcloudofthe
+Txt.
+Ans:
+
+
+#Installthelibraries
+!pipinstallnltkmatplotlibwordcloud
+#Importthenecessarymodules
+Importnltk
+From nltk.corpusimportstopwords
+From nltk.tokenizeimportword_tokenize,sent_tokenize
+From nltk.probabilityimportFreqDist
+Importmatplotlib.pyplotasplt
+From wordcloudimportWordCloud
+#Downloadthestopwordscorpus
+Nltk.download(‘stopwords’)
+#Definethetextparagraph
+Text=“Lorem ipsum dolorsitamet,consecteturadipiscingelit.Sedtristiqueanteetvelit
+vestibulum,velpharetraorciiaculis.Nullam mattisrisusquisauguetinciduntrhoncus.Morbi
+varius,arcuvitaescelerisquelaoreet,magnaestimperdietquam,sitametultriceslectusjustoid
+enim.Seddictum suscipitcommodo.Sedmaximusconsequatrisus,necpharetranibh
+interdum quis.Etiam egetquam velauguedictum dignissim sitametnecelit.Nuncatsapien
+dolor.Nullavitaeiaculislorem.Suspendissepotenti.Sednonanteturpis.Morbiconsectetur,
+arcuavestibulum suscipit,mauriserosconvallisnibh,necfeugiatorcienim sitametenim.
+Aliquam eratvolutpat.Etiam velnisiidnequeviverradapibusnonnonlectus.”
+#Tokenizetheparagraphtoextractwordsandsentences
+Words=word_tokenize(text.lower())
+Sentences=sent_tokenize(text)
+#Removethestopwordsfrom theextractedwords
+Stop_words=set(stopwords.words(‘english’))
+Filtered_words=[wordforwordinwordsifword.casefold()notinstop_words]
+#Calculatethewordfrequencydistributionandplotthefrequenciesusingmatplotlib
+Fdist=FreqDist(filtered_words)
+Fdist.plot(30,cumulative=False)
+Plt.show()
+#Plotthewordcloudofthetextusingwordcloud
+Wordcloud=WordCloud(width=800,height=800,
+Background_color=’white’,
+Stopwords=stop_words,
+Min_font_size=10).generate(text)
+#plottheWordCloudimage
+Plt.figure(figsize=(8,8),facecolor=None)
+Plt.imshow(wordcloud)
+Plt.axis(“off”)
+Plt.tight_layout(pad=0)
+Plt.show()

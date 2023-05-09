@@ -1,0 +1,103 @@
+Slip-25
+
+Q.1)Writeascripttocreate“cricket.xml”filewithmultipleelementsasshownbelow:
+<CricketTeam>
+<Team country=”Australia”>
+<player>____</player>
+<runs>______</runs>
+<wicket>____</wicket>
+</Team>
+</CricketTeam>
+Writeascripttoaddmultipleelementsin“cricket.xml”fileofcategory,country=”India”.
+Ans:
+
+
+<?php
+//CreateanewDOM document
+$doc=newDOMDocument();
+//Createtherootelement
+$cricketTeam =$doc->createElement(“CricketTeam”);
+//Createthefirstteam elementforAustralia
+$teamAustralia=$doc->createElement(“Team”);
+$teamAustralia->setAttribute(“country”,“Australia”);
+//Createtheplayerelementandsetitsvalue
+$player1=$doc->createElement(“player”,“SteveSmith”);
+$teamAustralia->appendChild($player1);
+//Createtherunselementandsetitsvalue
+$runs1=$doc->createElement(“runs”,“7090”);
+$teamAustralia->appendChild($runs1);
+//Createthewicketelementandsetitsvalue
+$wicket1=$doc->createElement(“wicket”,“17”);
+$teamAustralia->appendChild($wicket1);
+//Appendtheteam elementtotherootelement
+$cricketTeam->appendChild($teamAustralia);
+//Createthesecondteam elementforIndia
+$teamIndia=$doc->createElement(“Team”);
+$teamIndia->setAttribute(“country”,“India”);
+//Createtheplayerelementandsetitsvalue
+$player2=$doc->createElement(“player”,“ViratKohli”);
+$teamIndia->appendChild($player2);
+//Createtherunselementandsetitsvalue
+$runs2=$doc->createElement(“runs”,“12169”);
+$teamIndia->appendChild($runs2);
+//Createthewicketelementandsetitsvalue
+$wicket2=$doc->createElement(“wicket”,“4”);
+$teamIndia->appendChild($wicket2);
+//Createthecategoryelementandsetitsvalue
+$category=$doc->createElement(“category”,“Captain”);
+$teamIndia->appendChild($category);
+//Appendtheteam elementtotherootelement
+$cricketTeam->appendChild($teamIndia);
+//Appendtherootelementtothedocument
+$doc->appendChild($cricketTeam);
+//SavetheXMLfile
+$doc->save(“cricket.xml”);
+Echo“Elementsaddedsuccessfully!”;
+?>
+
+
+
+
+
+
+
+Q.2)Considerthefollowingdataset:https://www.kaggle.com/datasets/seungguini/youtube-
+commentsfor-covid19-relatedvideos?select=covid_2021_1.csv
+WriteaPythonscriptforthefollowing:
+i.
+Readthedatasetandperform datacleaningoperationsonit.
+ii.
+ii.Tokenizethecommentsinwords.Iii.Perform sentimentanalysisandfindthepercentageof
+positive,negativeandneutralcomments..
+Ans:
+
+
+
+Importpandasaspd
+Importnltk
+From nltk.sentiment.vaderimportSentimentIntensityAnalyzer
+#readthedataset
+Df=pd.read_csv(‘covid_2021_1.csv’)
+#removenullvaluesandduplicates
+Df.dropna(inplace=True)
+Df.drop_duplicates(subset=’Comment’,inplace=True)
+#tokenizecommentsinwords
+Nltk.download(‘punkt’)
+Df[‘tokens’]=df[‘Comment’].apply(nltk.word_tokenize)
+#perform sentimentanalysis
+Nltk.download(‘vader_lexicon’)
+Sia=SentimentIntensityAnalyzer()
+Df[‘sentiment’]=df[‘Comment’].apply(lambdax:sia.polarity_scores(x)[‘compound’])
+#calculatepercentageofpositive,negative,andneutralcomments
+Total_comments=len(df)
+Positive_comments=len(df[df[‘sentiment’]>0])
+Negative_comments=len(df[df[‘sentiment’]<0])
+Neutral_comments=len(df[df[‘sentiment’]==0])
+Positive_percentage=(positive_comments/total_comments)*100
+Negative_percentage=(negative_comments/total_comments)*100
+Neutral_percentage=(neutral_comments/total_comments)*100
+#printtheresults
+Print(‘TotalComments:’,total_comments)
+Print(‘PositiveComments:’,positive_comments,‘(‘,positive_percentage,‘%)’)
+Print(‘NegativeComments:’,negative_comments,‘(‘,negative_percentage,‘%)’)
+Print(‘NeutralComments:’,neutral_comments,‘(‘,neutral_percentage,‘%)’

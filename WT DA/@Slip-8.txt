@@ -1,0 +1,59 @@
+@Slip-8
+Q.1)WriteaJavaScripttodisplaymessage‘Examsarenear,haveyoustartedpreparingfor?’
+(usealert
+Box)andAcceptanytwonumbersfrom useranddisplayadditionoftwonumber.(UsePrompt
+and
+Confirm box)
+AAAns:
+
+
+//Displaymessageusingalertbox
+Alert(‘Examsarenear,haveyoustartedpreparingfor?’);
+//Accepttwonumbersfrom userusingpromptandconfirm boxes
+Letnum1=prompt(‘Enterfirstnumber:’);
+Letnum2=prompt(‘Entersecondnumber:’);
+LetconfirmMsg=`Areyousureyouwanttoadd${num1}and${num2}?`;
+//Showconfirmationmessagetouserusingconfirm box
+LetconfirmResult=confirm(confirmMsg);
+//Ifuserconfirms,thenperform additionanddisplaytheresult
+If(confirmResult){
+Num1=parseInt(num1);
+Num2=parseInt(num2);
+Letsum =num1+num2;
+Alert(`Thesum of${num1}and${num2}is${sum}.`);
+}
+
+
+Q.2)Downloadthegroceriesdataset.Writeapythonprogram toreadthedatasetanddisplayits
+Information.Preprocessthedata(dropnullvaluesetc.)Convertthecategoricalvaluesinto
+numeric
+Format.Applytheapriorialgorithm ontheabovedatasettogeneratethefrequentitemsetsand
+association
+Rules.
+Ans:
+
+
+Importpandasaspd
+From mlxtend.preprocessingimportTransactionEncoder
+From mlxtend.frequent_patternsimportapriori,association_rules
+#Loadthedataset
+Df=pd.read_csv(‘market_basket.csv’)
+#Dropanyrowswithnullvalues
+Df.dropna(inplace=True)
+#Convertcategoricalvaluestonumericformat
+Te=TransactionEncoder()
+Te_ary=te.fit(df.values).transform(df.values)
+Df=pd.DataFrame(te_ary,columns=te.columns_)
+#Generatefrequentitemsets
+Frequent_itemsets=apriori(df,min_support=0.01,use_colnames=True)
+#Generateassociationrules
+Rules=association_rules(frequent_itemsets,metric=”lift”,min_threshold=1)
+#Displayinformationaboutthedataset
+Print(“Datasetinformation:”)
+Print(df.info())
+#Displaythefrequentitemsets
+Print(“\nFrequentitemsets:”)
+Print(frequent_itemsets)
+#Displaytheassociationrules
+Print(“\nAssociationrules:”)
+Print(rules)

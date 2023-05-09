@@ -1,0 +1,78 @@
+Slip-5
+Q.1)CreateXMLfilenamed“Item.xml”withitem-name,item-rate,item quantityStorethedetails
+of5
+ItemsofdifferentTypes.
+Ans:
+
+
+Item.xml
+<items>
+<item type=”Electronics”>
+<name>Television</name>
+<rate>500</rate>
+<quantity>10</quantity>
+</item>
+<item type=”Clothing”>
+<name>Shirt</name>
+<rate>50</rate>
+<quantity>20</quantity>
+</item>
+<item type=”Grocery”>
+<name>Rice</name>
+<rate>40</rate>
+<quantity>30</quantity>
+</item>
+<item type=”Books”>
+<name>HarryPotterandthePhilosopher’sStone</name>
+<rate>20</rate>
+<quantity>50</quantity>
+</item>
+<item type=”Sports”>
+<name>Football</name>
+<rate>100</rate>
+<quantity>5</quantity>
+</item>
+</items>
+
+
+Q.2)Usetheirisdataset.WriteaPythonprogram toviewsomebasicstatisticaldetailslike
+percentile,
+Mean,stdetc.Ofthespeciesof‘Iris-setosa’,‘Iris-versicolor’and‘Iris-virginica’.Applylogistic
+regression
+Onthedatasettoidentifydifferentspecies(setosa,versicolor,verginica)ofIrisflowersgiven
+just4
+Features:sepalandpetallengthsandwidths..Findtheaccuracyofthemodel.
+Ans:
+
+
+
+
+Importpandasaspd
+From sklearn.datasetsimportload_iris
+From sklearn.linear_modelimportLogisticRegression
+From sklearn.model_selectionimporttrain_test_split
+From sklearn.metricsimportaccuracy_score
+#loadtheirisdataset
+Iris=load_iris()
+#createadataframefrom thedataset
+Df=pd.DataFrame(iris.data,columns=iris.feature_names)
+Df[‘target’]=iris.target
+#viewbasicstatisticaldetailsofthedifferentspecies
+Print(“StatisticaldetailsofIris-setosa:”)
+Print(df[df[‘target’]==0].describe())
+Print(“StatisticaldetailsofIris-versicolor:”)
+Print(df[df[‘target’]==1].describe())
+Print(“StatisticaldetailsofIris-virginica:”)
+Print(df[df[‘target’]==2].describe())
+#splitthedataintotrainingandtestingsets
+X=df.iloc[:,:-1]
+Y=df.iloc[:,-1]
+X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=42)
+#fitalogisticregressionmodel
+Logreg=LogisticRegression()
+Logreg.fit(X_train,y_train)
+#makepredictionsonthetestset
+Y_pred=logreg.predict(X_test)
+#calculatetheaccuracyofthemodel
+Accuracy=accuracy_score(y_test,y_pred)
+Print(“Accuracyofthelogisticregressionmodel:”,accuracy)

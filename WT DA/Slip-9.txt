@@ -1,0 +1,55 @@
+Slip-9
+
+Q.1)WriteaJavaScriptfunctiontovalidateusernameandpasswordforamembershipform.
+Ans:
+
+
+FunctionvalidateForm(){
+//Gettheusernameandpasswordinputvalues
+Varusername=document.forms[“membershipForm”][“username”].value;
+Varpassword=document.forms[“membershipForm”][“password”].value;
+//Validateusername
+If(username==“”){
+Alert(“Usernamemustbefilledout”);
+Returnfalse;
+}
+//Validatepassword
+If(password==“”){
+Alert(“Passwordmustbefilledout”);
+Returnfalse;
+}
+//Returntrueifbothusernameandpasswordarevalid
+Returntrue;
+}
+
+Q.2)Createyourowntransactionsdatasetandapplytheaboveprocessonyourdataset.
+Ans:
+
+
+Items=[‘item1’,’item2’,’item3’,’item4’]
+Transactions=[ [‘item1’,‘item2’,‘item3’],
+[‘item2’,‘item3’],
+[‘item1’,‘item2’,‘item4’],
+[‘item1’,‘item4’],
+[‘item2’,‘item3’,‘item4’],
+[‘item1’,‘item3’,‘item4’],
+[‘item1’,‘item2’],
+[‘item1’,‘item3’],
+[‘item3’,‘item4’],
+[‘item2’,‘item4’]
+]
+From mlxtend.preprocessingimportTransactionEncoder
+From mlxtend.frequent_patternsimportapriori,association_rules
+#Convertthetransactionsintoabinarymatrix
+Te=TransactionEncoder()
+Te_ary=te.fit_transform(transactions)
+#ConvertthebinarymatrixintoapandasDataFrame
+Df=pd.DataFrame(te_ary,columns=te.columns_)
+#Generatefrequentitemsetswithaminimum supportof0.3
+Frequent_itemsets=apriori(df,min_support=0.3,use_colnames=True)
+#Generateassociationruleswithaminimum confidenceof0.7
+Association_rules=association_rules(frequent_itemsets,metric=”confidence”,
+min_threshold=0.7)
+#Printthefrequentitemsetsandassociationrules
+Print(frequent_itemsets)
+Print(association_rules)

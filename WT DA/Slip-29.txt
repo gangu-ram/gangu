@@ -1,0 +1,111 @@
+Slip-29
+
+
+Q.1)WriteaPHPscriptforthefollowing:Designaform toacceptanumberfrom theuser.
+Perform theoperationsandshowtheresults.
+1)FibonacciSeries.
+2)Tofindsum ofthedigitsofthatnumber.
+(Usetheconceptofselfprocessingpage.)
+Ans:
+
+
+
+<!DOCTYPEhtml>
+<html>
+<head>
+<title>NumberOperations</title>
+</head>
+<body>
+<h1>NumberOperations</h1>
+<?php
+//definevariablesandsettoemptyvalues
+$num =$op=“”;
+If($_SERVER[“REQUEST_METHOD”]==“POST”){
+$num =test_input($_POST[“num”]);
+$op=test_input($_POST[“op”]);
+//perform operationbasedonuser’schoice
+Switch($op){
+Case“fib”:
+$result=fibonacci($num);
+Echo“<p>TheFibonacciseriesof$num numbersis:$result</p>”;
+Break;
+Case“sum”:
+$result=sumOfDigits($num);
+Echo“<p>Thesum ofdigitsin$num is:$result</p>”;
+Break;
+Default:
+Echo“<p>Invalidoperationselected</p>”;
+}
+}
+Functiontest_input($data){
+$data=trim($data);
+$data=stripslashes($data);
+$data=htmlspecialchars($data);
+Return$data;
+}
+Functionfibonacci($num){
+$first=0;
+$second=1;
+$result=“”;
+For($i=0;$i<$num;$i++){
+$result.=$first.““;
+$third=$first+$second;
+$first=$second;
+$second=$third;
+}
+Return$result;
+}
+FunctionsumOfDigits($num){
+$sum =0;
+While($num >0){
+$digit=$num %10;
+$sum +=$digit;
+$num =(int)($num /10);
+}
+Return$sum;
+}
+?>
+<form method=”post”action=”<?phpecho
+htmlspecialchars($_SERVER[“PHP_SELF”]);?>”>
+<labelfor=”num”>Enteranumber:</label>
+<inputtype=”number”name=”num”id=”num”required>
+<br><br>
+<labelfor=”op”>Selectanoperation:</label>
+<selectname=”op”id=”op”required>
+<optionvalue=””>--Select--</option>
+<optionvalue=”fib”>FibonacciSeries</option>
+<optionvalue=”sum”>Sum ofDigits</option>
+</select>
+<br><br>
+<inputtype=”submit”value=”Submit”>
+</form>
+</body>
+</html>
+
+
+
+Q.2)BuildalogisticregressionmodelforStudentScoreDataset.
+Ans:
+
+
+
+#Importnecessarylibraries
+Importpandasaspd
+From sklearn.linear_modelimportLogisticRegression
+From sklearn.model_selectionimporttrain_test_split
+From sklearn.metricsimportaccuracy_score
+#Loadthedataset
+Data=pd.read_csv(‘student_scores.csv’)
+#Splitthedataintoinputandoutputvariables
+X=data.iloc[:,:-1].values
+Y=data.iloc[:,-1].values
+#Splitthedataintotrainingandtestingsets
+X_train,X_test,y_train,y_test=train_test_split(X,y,test_size=0.2,random_state=0)
+#Createthelogisticregressionmodelandfitittothetrainingdata
+Classifier=LogisticRegression()
+Classifier.fit(X_train,y_train)
+#Makepredictionsonthetestingset
+Y_pred=classifier.predict(X_test)
+#Evaluatethemodel’saccuracy
+Accuracy=accuracy_score(y_test,y_pred)
+Print(“Accuracy:”,accuracy)
